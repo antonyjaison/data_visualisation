@@ -1,0 +1,379 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+* {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #1a1c4d;
+  width: 100%;
+}
+.dashboard_wrapper {
+  padding: 20px 50px;
+}
+.header {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  gap: 30px;
+}
+
+.header > h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.grid_container {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-auto-rows: minmax(190px, auto);
+  grid-gap: 10px;
+}
+.grid_item {
+  background-color: #4c477f;
+  border-radius: 3px;
+}
+.grid_item_1,
+.grid_item_2,
+.grid_item_3 {
+  grid-column: span 1;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-left: 30px;
+}
+.grid_item_1 > h3,
+.grid_item_2 > h3,
+.grid_item_3 > h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 34px;
+}
+.grid_item_1 > p,
+.grid_item_2 > p,
+.grid_item_3 > p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 37px;
+  line-height: 56px;
+}
+.grid_item_1 > p > span,
+.grid_item_3 > p > span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 75px;
+}
+.grid_item_4 {
+  grid-row: span 3;
+  display: flex;
+  align-items: center;
+}
+.grid_item_5 {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+.grid_item_6 {
+  grid-column: span 4;
+  grid-row: span 3;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 0;
+}
+.rating_stars {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  gap: 20px;
+}
+.horizontal_bar_chart {
+  width: 100%;
+  flex: 1;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.histogram_section {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.histogram_section > p,
+.horizontal_bar_chart > p {
+  color: #fff;
+}
+
+.heading {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.gender {
+  display: flex;
+  gap: 20px;
+  height: fit-content;
+  align-items: center;
+}
+.pie_info_section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.gender > p,
+.pie_info_section > p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  color: #ffffff;
+}
+.cube_f,
+.cube_m {
+  width: 25px;
+  height: 25px;
+  background: #e8d5b5;
+}
+.cube_m {
+  background-color: #51ecc6;
+}
+.pie_section {
+  width: 100%;
+  height: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* justify-content: flex-start; */
+  align-items: center;
+  gap: 50px;
+}
+.sales_chart_section {
+  padding: 20px 0;
+  width: 100%;
+  height: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 40px;
+}
+.sales_chart_section > p {
+  font-size: 18px;
+  color: #fff;
+}
+.count {
+  text-decoration: underline;
+}
+.axis path,
+.axis line {
+  stroke: white;
+}
+.axis text {
+  fill: #fff;
+}
+
+.x-axis line,
+.x-axis path,
+.y-axis line,
+.y-axis path {
+  stroke: #fff;
+}
+.y-axis text,
+.x-axis text {
+  color: #fff;
+}
+
+.star {
+  margin-left: 5px;
+}
+
+@media (max-width: 1200px) {
+  .grid_item_6 {
+    flex-direction: column;
+    gap: 100px;
+  }
+  .grid_container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid_item_4 {
+    grid-row: span 1;
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+  /* .grid_item_5 {
+    grid-column: span 3;
+    grid-row: span 2;
+  } */
+  .grid_item_6 {
+    grid-column: span 4;
+    grid-row: span 3;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .grid_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid_item_1,
+  .grid_item_2 {
+    grid-column: span 1;
+  }
+  .grid_item_3 {
+    grid-column: span 3;
+  }
+  .dashboard_wrapper {
+    padding: 20px 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .header {
+    gap: 20px;
+    padding: 0 5px;
+  }
+  .header > h1 {
+    font-weight: 500;
+    font-size: 24px;
+  }
+  .header > img {
+    width: 25px;
+    height: 25px;
+  }
+  .grid_container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+  .grid_item_1,
+  .grid_item_2 {
+    grid-column: span 1;
+  }
+
+  .grid_item_1,
+  .grid_item_2,
+  .grid_item_3 {
+    justify-content: space-evenly;
+    padding-left: 10px;
+  }
+  .grid_item_1 > h3,
+  .grid_item_2 > h3,
+  .grid_item_3 > h3 {
+    font-size: 20px;
+  }
+  .grid_item_1 > p,
+  .grid_item_2 > p,
+  .grid_item_3 > p {
+    font-size: 26px;
+  }
+  .grid_item_1 > p > span,
+  .grid_item_3 > p > span {
+    font-size: 40px;
+  }
+
+  .grid_item_3 {
+    grid-column: span 3;
+  }
+  .dashboard_wrapper {
+    padding: 5px 5px;
+  }
+  .pie_section {
+    justify-content: space-around;
+    gap: 10px;
+  }
+  .pie_section > h3 {
+    padding-left: 10px;
+  }
+  .heading {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    color: #ffffff;
+  }
+  .gender {
+    gap: 15px;
+  }
+  .pie_info_section {
+    gap: 20px;
+  }
+  .gender > p,
+  .pie_info_section > p {
+    font-size: 20px;
+  }
+  .cube_f,
+  .cube_m {
+    width: 20px;
+    height: 20px;
+  }
+
+  .sales_chart_section {
+    padding: 20px 0;
+    width: 100%;
+    height: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 40px;
+  }
+  .sales_chart_section > p {
+    font-size: 16px;
+    line-height: 30px;
+  }
+  .grid_item_6 {
+    padding: 0 10px;
+  }
+  .horizontal_bar_chart > svg {
+    align-self: self-start;
+  }
+  .horizontal_bar_chart > p {
+    font-size: 15px;
+    line-height: 30px;
+  }
+  .histogram_section > svg {
+    align-self: flex-start;
+    width: 100%;
+    overflow-x: scroll;
+  }
+  .histogram_section > p {
+    font-size: 15px;
+    line-height: 30px;
+  }
+  .rating_stars {
+    gap: 0px;
+  }
+  .star {
+    margin-left: 5px;
+    width: 14px;
+    height: 14px;
+  }
+}
