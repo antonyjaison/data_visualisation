@@ -35,7 +35,7 @@ body {
   margin-top: 20px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: minmax(190px, auto);
   grid-gap: 10px;
 }
@@ -52,6 +52,14 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   padding-left: 30px;
+}
+.grid_item_4 {
+  grid-row: span 1;
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
 }
 .grid_item_1 > h3,
 .grid_item_2 > h3,
@@ -210,6 +218,23 @@ body {
   margin-left: 5px;
 }
 
+.swiper {
+  margin-top: 9px;
+  width: 100%;
+  height: fit-content;
+}
+.positive_and_negetive_section{
+  display: flex;
+}
+.details_section{
+  color: #fff;
+  padding: 20px;
+  line-height: 20px;
+}
+.details_section > p{
+  margin-top: 15px;
+}
+
 @media (max-width: 1200px) {
   .grid_item_6 {
     flex-direction: column;
@@ -254,6 +279,11 @@ body {
   }
   .dashboard_wrapper {
     padding: 20px 20px;
+  }
+  .positive_and_negetive_section{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
   }
 }
 
@@ -352,9 +382,12 @@ body {
   .grid_item_6 {
     padding: 0 10px;
   }
-  .horizontal_bar_chart > svg {
-    align-self: self-start;
+  .horizontal_bar_chart > svg{
+    align-self: center;
   }
+  /* .horizontal_bar_chart > svg {
+    align-self: self-start;
+  } */
   .horizontal_bar_chart > p {
     font-size: 15px;
     line-height: 30px;

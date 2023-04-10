@@ -24,66 +24,88 @@
           <h3>Average Rating</h3>
           <div class="rating_stars">
             <p id="rating">7.0</p>
-            <div id="star_section" class="stars">
-
-            </div>
+            <div id="star_section" class="stars"></div>
           </div>
         </div>
         <div class="grid_item grid_item_3">
           <h3>Average sales per transaction</h3>
           <p>$<span id="avg_sales"></span></p>
         </div>
-        <div class="grid_item grid_item_4">
-          <div class="pie_section">
-            <h3 class="heading">Customers based on Gender</h3>
+      </div>
 
-            <svg id="chart" width="300" height="300"></svg>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="grid_item grid_item_4 swiper-slide">
+            <div class="pie_section">
+              <h3 class="heading">Customers based on Gender</h3>
 
-            <div class="pie_info_section">
-              <p id="total_customers"></p>
-              <div class="gender">
-                <div class="cube_f"></div>
-                <p id="female"></p>
+              <svg id="chart" width="300" height="300"></svg>
+
+              <div class="pie_info_section">
+                <p id="total_customers"></p>
+                <div class="gender">
+                  <div class="cube_f"></div>
+                  <p id="female"></p>
+                </div>
+
+                <div class="gender">
+                  <div class="cube_m"></div>
+                  <p id="male">Male</p>
+                </div>
               </div>
-
-              <div class="gender">
-                <div class="cube_m"></div>
-                <p id="male">Male</p>
+            </div>
+          </div>
+          <div class="grid_item grid_item_5 swiper-slide">
+            <div class="sales_chart_section">
+              <h3 class="heading">Sales by product line</h3>
+              <svg id="bar_chart"></svg>
+              <p>
+                X-axis : Product Category <br />Y-axis : Total income by each
+                category in $
+              </p>
+            </div>
+          </div>
+          <div class="grid_item grid_item_6 swiper-slide">
+            <div class="positive_and_negetive_section">
+              <div class="horizontal_bar_chart">
+                <h3 class="heading">Total Payments by Payment Method</h3>
+                <svg id="horizontal_bar" width="100%" height="200"></svg>
+                <p>
+                  X-axis : % of amount paid in each Payment category
+                  <br />Y-axis : Different Payment category
+                </p>
+                <div class="details_section">
+                  <p class="bar_chart_data1"></p>
+                  <p class="bar_chart_data2"></p>
+                </div>
+              </div>
+              <div class="histogram_section">
+                <h3 class="heading">Tax Payments by Payment Method</h3>
+                <svg id="histogram"></svg>
+                <p>
+                  X-axis : Different Payment category
+                  <br />Y-axis : Tax paid by each payment category in $
+                </p>
+                <div class="details_section">
+                  <p class="histogram_data"></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="grid_item grid_item_5">
-          <div class="sales_chart_section">
-            <h3 class="heading">Sales by product line</h3>
-            <svg id="bar_chart"></svg>
-            <p>
-              X-axis : Product Category <br />Y-axis : Total income by each
-              category in $
-            </p>
-          </div>
-        </div>
-        <div class="grid_item grid_item_6">
-          <div class="horizontal_bar_chart">
-            <h3 class="heading">Total Payments by Payment Method</h3>
-            <svg id="horizontal_bar" width="100%" height="200"></svg>
-            <p>
-              X-axis : % of amount paid in each Payment category <br />Y-axis :
-              Different Payment category
-            </p>
-          </div>
-          <div class="histogram_section">
-            <h3 class="heading">Tax Payments by Payment Method</h3>
-            <svg id="histogram"></svg>
-            <p>
-              X-axis : Different Payment category
-              <br />Y-axis : Tax paid by each payment category in $
-            </p>
-          </div>
-        </div>
+
+        <!-- <div class="swiper-button-next"></div> -->
+        <!-- <div class="swiper-button-prev"></div> -->
+        <!-- <div class="swiper-pagination"></div> -->
       </div>
     </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   </body>
 </html>

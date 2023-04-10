@@ -1,3 +1,17 @@
+// for swiper
+var swiper = new Swiper(".mySwiper", {
+  spaceBetween: 30,
+  effect: "fade",
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});
+
 const product = {
   electronic: "Electronic accessories",
   health: "Health and beauty",
@@ -30,135 +44,129 @@ const rating = document.querySelector("#rating");
 const avg_sales = document.querySelector("#avg_sales");
 const star_section = document.querySelector("#star_section");
 
-// fetch method is used for load the dataset from the directory dataset
-fetch("supermarket_sales.json").then((res) => {
-  res
-    .json()
-    .then((data) => {
-      salesData = data;
-    })
-    .then(() => {
-      // loop through the dataset
-      salesData.forEach((data) => {
-        // for checking how many female and male customers
-        if (data.Gender === "Female") {
-          f_count++;
-        } else m_count++;
-
-        // here we get the total amount, average rating and the total quantity
-        total += Number(data.Total);
-        avg_rating += Number(data.rating);
-        count++;
-
-        const paymentMethod = data.Payment;
-        const totalAmount = Number(data.Total);
-        const Tax = Number(data.Tax);
-
-        // if the payment method hasn't been seen before, create a new object for it
-        if (!paymentMethodData[paymentMethod]) {
-          paymentMethodData[paymentMethod] = {
-            totalAmount: 0,
-            count: 0,
-            Tax: 0,
-          };
-        }
-
-        // update the payment method data with the current transaction
-        paymentMethodData[paymentMethod].totalAmount += totalAmount;
-        paymentMethodData[paymentMethod].count++;
-        paymentMethodData[paymentMethod].Tax += Tax;
-
-        if (!incomeByLine[data.Product_line]) {
-          incomeByLine[data.Product_line] = {
-            totalIncome: 0,
-            count: 0,
-            Tax: 0,
-          };
-        }
-
-        incomeByLine[data.Product_line].totalIncome += Number(data.Total);
-        incomeByLine[data.Product_line].Tax += Number(data.Tax);
-        incomeByLine[data.Product_line].count++;
-
-        if (!ratingByLine[data.Product_line]) {
-          ratingByLine[data.Product_line] = { totalRating: 0, count: 0 };
-        }
-
-        ratingByLine[data.Product_line].totalRating += Number(data.rating);
-        ratingByLine[data.Product_line].count++;
-      });
-
-      rating.innerHTML = Math.round(avg_rating / count)
-        .toString()
-        .padEnd(3, ".0");
-      total_sales.innerHTML = formatNumber(total);
-      avg_sales.innerHTML = (total / count).toFixed(2);
-
-      // loop avg_rating times to get the stars
-      for (let i = 0; i < Math.round(avg_rating / count); i++) {
-        const star = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        star.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        star.setAttribute("width", "16");
-        star.setAttribute("height", "16");
-        star.setAttribute("fill", "yellow");
-        star.setAttribute("class", "bi bi-star-fill star");
-        star.setAttribute("viewBox", "0 0 16 16");
-        const path = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-        path.setAttribute(
-          "d",
-          "M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
-        );
-        star.appendChild(path);
-        star_section.appendChild(star);
-      }
-
-      // create animimation for the stars
-      d3.select("#star_section")
-        .style("opacity", 0) // set initial opacity to 0 for fade in animation
-        .transition() // add transition for fade in animation
-        .duration(1000)
-        .style("opacity", 1);
-
-      // convert the paymentMethod data object to peymentMethod array
-      Object.keys(paymentMethodData).forEach((paymentMethod) => {
-        const data = paymentMethodData[paymentMethod];
-        const Tax = data.Tax;
-        paymentData.push({
-          payment_method: paymentMethod,
-          total_sales: data.totalAmount,
-          Tax: Tax,
-        });
-      });
-
-      // the gender_data is the data for th pie chart
-      var gender_data = [
-        {
-          name: "Male",
-          count: m_count,
-          percentage: (m_count / (f_count + m_count)) * 100,
-          color: "#51ECC6",
-        },
-        {
-          name: "Female",
-          count: f_count,
-          percentage: (f_count / (f_count + m_count)) * 100,
-          color: "#E8D5B5",
-        },
-      ];
-
-      // these are the functions for creating the four visualisations
-      generateBarChart(incomeByLine);
-      horizontalBarChart(paymentData);
-      generatePieChart(gender_data);
-      histogram(paymentData);
+fetch("https://data-visualisation-backend.onrender.com/api/get-data").then(
+  (res) => {
+    res.json().then((json) => {
+      analyseData(json);
     });
-});
+  }
+);
+
+const analyseData = (salesData) => {
+  // loop through the dataset
+  salesData.forEach((data) => {
+    // for checking how many female and male customers
+    if (data.Gender === "Female") {
+      f_count++;
+    } else m_count++;
+
+    // here we get the total amount, average rating and the total quantity
+    total += parseFloat(data.Total);
+    avg_rating += parseFloat(data.rating);
+    count++;
+
+    const paymentMethod = data.Payment;
+    const totalAmount = parseFloat(data.Total);
+    const Tax = parseFloat(data.Tax);
+
+    // if the payment method hasn't been seen before, create a new object for it
+    if (!paymentMethodData[paymentMethod]) {
+      paymentMethodData[paymentMethod] = {
+        totalAmount: 0,
+        count: 0,
+        Tax: 0,
+      };
+    }
+
+    // update the payment method data with the current transaction
+    paymentMethodData[paymentMethod].totalAmount += totalAmount;
+    paymentMethodData[paymentMethod].count++;
+    paymentMethodData[paymentMethod].Tax += Tax;
+
+    if (!incomeByLine[data.Product_line]) {
+      incomeByLine[data.Product_line] = {
+        totalIncome: 0,
+        count: 0,
+        Tax: 0,
+      };
+    }
+
+    incomeByLine[data.Product_line].totalIncome += parseFloat(data.Total);
+    incomeByLine[data.Product_line].Tax += parseFloat(data.Tax);
+    incomeByLine[data.Product_line].count++;
+
+    if (!ratingByLine[data.Product_line]) {
+      ratingByLine[data.Product_line] = { totalRating: 0, count: 0 };
+    }
+
+    ratingByLine[data.Product_line].totalRating += parseFloat(data.rating);
+    ratingByLine[data.Product_line].count++;
+  });
+
+  rating.innerHTML = Math.round(avg_rating / count)
+    .toString()
+    .padEnd(3, ".0");
+  total_sales.innerHTML = formatNumber(total);
+  avg_sales.innerHTML = (total / count).toFixed(2);
+
+  // loop avg_rating times to get the stars
+  for (let i = 0; i < Math.round(avg_rating / count); i++) {
+    const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    star.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    star.setAttribute("width", "16");
+    star.setAttribute("height", "16");
+    star.setAttribute("fill", "yellow");
+    star.setAttribute("class", "bi bi-star-fill star");
+    star.setAttribute("viewBox", "0 0 16 16");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      "M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+    );
+    star.appendChild(path);
+    star_section.appendChild(star);
+  }
+
+  // create animimation for the stars
+  d3.select("#star_section")
+    .style("opacity", 0) // set initial opacity to 0 for fade in animation
+    .transition() // add transition for fade in animation
+    .duration(1000)
+    .style("opacity", 1);
+
+  // convert the paymentMethod data object to peymentMethod array
+  Object.keys(paymentMethodData).forEach((paymentMethod) => {
+    const data = paymentMethodData[paymentMethod];
+    const Tax = data.Tax;
+    paymentData.push({
+      payment_method: paymentMethod,
+      total_sales: data.totalAmount,
+      Tax: Tax,
+    });
+  });
+
+  // the gender_data is the data for th pie chart
+  var gender_data = [
+    {
+      name: "Male",
+      count: m_count,
+      percentage: ((m_count / (f_count + m_count)) * 100).toFixed(2),
+      color: "#51ECC6",
+    },
+    {
+      name: "Female",
+      count: f_count,
+      percentage: ((f_count / (f_count + m_count)) * 100).toFixed(2),
+      color: "#E8D5B5",
+    },
+  ];
+
+  // these are the functions for creating the four visualisations
+  generateBarChart(incomeByLine);
+  horizontalBarChart(paymentData);
+  generatePieChart(gender_data);
+  histogram(paymentData);
+};
 
 // function for creating the pieChart
 const generatePieChart = (pieData) => {
@@ -300,6 +308,7 @@ const generateBarChart = (totalIncomeBySales) => {
 };
 
 const histogram = (data) => {
+  const histogram_data = document.querySelector(".histogram_data");
   // Define the dimensions of the chart
   const margin = { top: 20, right: 20, bottom: 50, left: 50 };
   const containerWidth = document
@@ -379,9 +388,24 @@ const histogram = (data) => {
             .remove()
         )
     );
+  histogram_data.innerHTML = `The analysis of the histogram data can have implications for
+    businesses and policymakers. For businesses, it can provide
+    insights into customer preferences and payment method
+    adoption, which can inform their payment strategies. For
+    policymakers, it can provide information on the
+    effectiveness of different payment methods in tax collection
+    and help in policy decisions related to tax payment options.`;
 };
 
 const horizontalBarChart = (data) => {
+  const bar_chart_data1 = document.querySelector(".bar_chart_data1");
+  const bar_chart_data2 = document.querySelector(".bar_chart_data2");
+  // Define the dimensions of the chart
+  const margin = { top: 20, right: 20, bottom: 20, left: 100 };
+  const container = document.querySelector("#horizontal_bar");
+  const width = container.clientWidth - margin.left - margin.right;
+  const height = container.clientHeight - margin.top - margin.bottom;
+
   // Calculate the total sales across all payment methods
   const total_sales = data.reduce((acc, cur) => acc + cur.total_sales, 0);
 
@@ -390,12 +414,7 @@ const horizontalBarChart = (data) => {
     d.percent_sales = (d.total_sales / total_sales) * 100;
   });
 
-  // Define the dimensions of the chart
-  const margin = { top: 20, right: 20, bottom: 20, left: 100 };
-  const width = 600 - margin.left - margin.right;
-  const height = 200 - margin.top - margin.bottom;
-
-  // Define the scales for the chart
+  // Update the scales for the chart
   const xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
   const yScale = d3
     .scaleBand()
@@ -407,9 +426,9 @@ const horizontalBarChart = (data) => {
   const svg = d3
     .select("#horizontal_bar")
     .append("svg")
-    .attr("overflow", "scroll")
-    // .attr("height", height + margin.top + margin.bottom)
-    .attr("x", -60)
+    .attr("width", "100%") // Set responsive width
+    .attr("height", "100%") // Set responsive height
+    .attr("viewBox", `0 0 ${container.clientWidth} ${container.clientHeight}`) // Set viewBox for responsiveness
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -457,7 +476,16 @@ const horizontalBarChart = (data) => {
     .call(xAxis);
   svg.append("g").attr("class", "y-axis").call(yAxis);
   svg.style("opacity", 0).transition().duration(1000).style("opacity", 1);
+  bar_chart_data1.innerHTML =
+    "The data suggests that e-wallet has the highest market share among the three payment methods.";
+
+  bar_chart_data2.innerHTML = `Businesses may integrate e-wallet options into their payment
+    systems if e-wallet is the most popular payment method to
+    align with customer preferences and potentially boost sales
+    and customer satisfaction.`;
 };
+
+//
 
 function formatNumber(num) {
   if (num >= 1000000) {
